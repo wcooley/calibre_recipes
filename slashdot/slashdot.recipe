@@ -16,6 +16,8 @@ class Slashdot(BasicNewsRecipe):
              delay = 3
              max_articles_per_feed = 100
              language = 'en'
+             use_embedded_content  = True
+             remove_tags =  [dict(name='img',)]
 
              __author__ = 'floweros edited by Huan T'
              no_stylesheets = True
