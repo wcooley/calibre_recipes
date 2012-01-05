@@ -58,7 +58,7 @@ class WeeklyLWN(BasicNewsRecipe):
         url_re = re.compile('^/Articles/')
 
         while True:
-            tag_title = body.findNext(name='p', attrs={'class':'SummaryHL'})
+            tag_title = body.findNext(name='h2', attrs={'class':'SummaryHL'})
             if tag_title == None:
                 break
 
