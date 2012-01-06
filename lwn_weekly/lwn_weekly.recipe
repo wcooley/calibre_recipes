@@ -16,6 +16,8 @@ class WeeklyLWN(BasicNewsRecipe):
     __author__ = 'Davide Cavalca'
     language = 'en'
 
+    extra_css = 'pre,code,samp,kbd,tt { font-size: 80% }\nblockquote {margin-left:0 }\n* { color: black }\n'
+
     cover_url = 'http://lwn.net/images/lcorner.png'
     #masthead_url = 'http://lwn.net/images/lcorner.png'
     publication_type = 'magazine'
