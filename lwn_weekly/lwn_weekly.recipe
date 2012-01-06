@@ -79,19 +79,19 @@ class WeeklyLWN(BasicNewsRecipe):
         url_re = re.compile('^/Articles/')
 
         while True:
-            tag_title = body.findNext(name='h2', attrs={'class':'SummaryHL'})
+            tag_title = body.findNext(attrs={'class':'SummaryHL'})
             if tag_title == None:
                 break
 
-            tag_section = tag_title.findPrevious(name='p', attrs={'class':'Cat1HL'})
+            tag_section = tag_title.findPrevious(attrs={'class':'Cat1HL'})
             if tag_section == None:
                 section = 'Front Page'
             else:
                 section = tag_section.string
 
-            tag_section2 = tag_title.findPrevious(name='p', attrs={'class':'Cat2HL'})
+            tag_section2 = tag_title.findPrevious(attrs={'class':'Cat2HL'})
             if tag_section2 != None:
-                if tag_section2.findPrevious(name='p', attrs={'class':'Cat1HL'}) == tag_section:
+                if tag_section2.findPrevious(attrs={'class':'Cat1HL'}) == tag_section:
                     section = "%s: %s" %(section, tag_section2.string)
 
             if section not in articles.keys():
