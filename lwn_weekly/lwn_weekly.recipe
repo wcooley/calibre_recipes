@@ -15,10 +15,11 @@ class WeeklyLWN(BasicNewsRecipe):
     description = 'Weekly summary of what has happened in the free software world.'
     __author__ = 'Davide Cavalca'
     language = 'en'
+    site_url = 'http://lwn.net'
 
     extra_css = 'pre,code,samp,kbd,tt { font-size: 80% }\nblockquote {margin-left:0 }\n* { color: black }\n'
 
-    cover_url = 'http://lwn.net/images/lcorner.png'
+    cover_url = site_url + '/images/lcorner.png'
     #masthead_url = 'http://lwn.net/images/lcorner.png'
     publication_type = 'magazine'
 
@@ -47,13 +48,28 @@ class WeeklyLWN(BasicNewsRecipe):
         return br
 
     def print_version(self, url):
-        return 'http://lwn.net' + url.split('#')[0] + '?format=printable'
+
+        # Strip off anchor
+        url = url.split('#')[0]
+
+        # Prepend site_url
+        if url[0:len(self.site_url)] != self.site_url:
+            url = self.site_url + url
+
+        # Append printable URL parameter
+        print_param = '?format=printable'
+        if url[-len(print_param):] != print_param:
+            url += print_param
+
+        #import sys
+        #print >>sys.stderr, "*** print_version(url):", url
+        return url
 
     def parse_index(self):
         if self.username is not None and self.password is not None:
-            index_url = 'http://lwn.net/current/bigpage?format=printable'
+            index_url = self.print_version('/current/bigpage')
         else:
-            index_url = 'http://lwn.net/free/bigpage?format=printable'
+            index_url = self.print_version('/free/bigpage')
         soup = self.index_to_soup(index_url)
         body = soup.body
 
