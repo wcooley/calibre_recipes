@@ -46,6 +46,9 @@ class WeeklyLWN(BasicNewsRecipe):
             br.submit()
         return br
 
+    def print_version(self, url):
+        return 'http://lwn.net' + url.split('#')[0] + '?format=printable'
+
     def parse_index(self):
         if self.username is not None and self.password is not None:
             index_url = 'http://lwn.net/current/bigpage?format=printable'
@@ -98,9 +101,10 @@ class WeeklyLWN(BasicNewsRecipe):
             if tag_url == None:
                 break
   
+
             article = dict(
                 title=self.tag_to_string(tag_title),
-                url= 'http://lwn.net' + tag_url['href'].split('#')[0] + '?format=printable',
+                url=tag_url['href'],
                 description='', content='', date='')
             articles[section].append(article)
 
