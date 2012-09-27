@@ -120,6 +120,8 @@ class WeeklyLWN(BasicNewsRecipe):
 
                 if section_title not in articles:
                     articles[section_title] = []
+                if section_title not in ans:
+                    ans.append(section_title)
 
                 articles[section_title].append({
                         'url': article_url,
@@ -130,7 +132,7 @@ class WeeklyLWN(BasicNewsRecipe):
             else:
                 print >>sys.stderr, "lwn_weekly.recipe: something bad happened; should not be able to reach this"
 
-        ans = [(section, articles[section]) for section in articles]
+        ans = [(section, articles[section]) for section in ans if section in articles]
         #from pprint import pprint
         #pprint(ans)
 
