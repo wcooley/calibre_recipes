@@ -77,7 +77,7 @@ class WeeklyLWN(BasicNewsRecipe):
         articles = {}
         ans = []
 
-        section = 'Front Page'
+        section = soup.title.string
         subsection = None
 
         while True:
