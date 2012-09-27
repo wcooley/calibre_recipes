@@ -108,9 +108,15 @@ class WeeklyLWN(BasicNewsRecipe):
 
                 if article_anchor:
                     article_url = article_anchor.get('href')
+                    if not article_url:
+                        print >>sys.stderr, 'article_url is None for article_anchor "%s": "%s"' \
+                                % (str(article_anchor), article_title)
+                        continue
+
                 else:
+                    print >>sys.stderr, 'article_anchor is None for "%s"; skipping' % article_title
                     article_url = None
-                    next
+                    continue
 
                 if section_title not in articles:
                     articles[section_title] = []
