@@ -35,7 +35,10 @@ class WeeklyLWN(BasicNewsRecipe):
         (re.compile(r'<hr [^>]+>\s*\n\s*.*?comments[)]'), lambda m: ''),
     ]
 
-    conversion_options = { 'linearize_tables' : True }
+    conversion_options = {
+        'linearize_tables' : True,
+        'no_inline_navbars': True,
+    }
 
     oldest_article = 7.0
     needs_subscription = 'optional'
