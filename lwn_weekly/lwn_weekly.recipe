@@ -84,7 +84,9 @@ class WeeklyLWN(BasicNewsRecipe):
         subsection = None
 
         while True:
-            curr = curr.findNext(attrs = {'class': ['SummaryHL', 'Cat1HL', 'Cat2HL'] })
+            curr = curr.findNext(attrs = {
+                    'class': ['SummaryHL', 'Cat1HL', 'Cat2HL']
+                })
 
             if curr == None:
                 break
@@ -106,18 +108,22 @@ class WeeklyLWN(BasicNewsRecipe):
                 else:
                     section_title = section
 
-                # Most articles have anchors in their titles, *except* the security vulnerabilities
-                article_anchor = curr.findNext(name = 'a', attrs = { 'href': re.compile('^/Articles/') } )
+                # Most articles have anchors in their titles, *except* the
+                # security vulnerabilities
+                article_anchor = curr.findNext(name = 'a',
+                                attrs = { 'href': re.compile('^/Articles/') } )
 
                 if article_anchor:
                     article_url = article_anchor.get('href')
                     if not article_url:
-                        print >>sys.stderr, 'article_url is None for article_anchor "%s": "%s"' \
+                        print >>sys.stderr, \
+                            'article_url is None for article_anchor "%s": "%s"' \
                                 % (str(article_anchor), article_title)
                         continue
 
                 else:
-                    print >>sys.stderr, 'article_anchor is None for "%s"; skipping' % article_title
+                    print >>sys.stderr, \
+                        'article_anchor is None for "%s"; skipping' % article_title
                     article_url = None
                     continue
 
@@ -133,7 +139,8 @@ class WeeklyLWN(BasicNewsRecipe):
                     })
 
             else:
-                print >>sys.stderr, "lwn_weekly.recipe: something bad happened; should not be able to reach this"
+                print >>sys.stderr, "lwn_weekly.recipe: something bad happened;", \
+                    "should not be able to reach this"
 
         ans = [(section, articles[section]) for section in ans if section in articles]
         #from pprint import pprint
