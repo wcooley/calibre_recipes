@@ -11,3 +11,6 @@ test_epub:
 
 mobi:
 	ebook-convert lwn_weekly.recipe lwn_weekly.mobi
+
+epub:
+	ebook-convert lwn_weekly.recipe lwn_weekly.epub
