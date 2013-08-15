@@ -10,6 +10,7 @@ from calibre.web.feeds.news import BasicNewsRecipe
 from calibre.ebooks.BeautifulSoup import BeautifulSoup
 import re
 import sys
+from datetime import datetime
 
 class WeeklyLWN(BasicNewsRecipe):
     title = 'LWN.net Weekly Edition'
@@ -80,7 +81,11 @@ class WeeklyLWN(BasicNewsRecipe):
         articles = {}
         ans = []
 
-        section = soup.title.string
+        self.title = str(soup.title.string)
+        self.issue_date = datetime.strptime(re.sub(
+            '^.*?\s+for\s+(\w+\s+\d+,\s+\d+)\s*.*$', '\g<1>',
+            self.title), '%B %d, %Y')
+        section = 'Front page'
         subsection = None
 
         while True:
@@ -135,7 +140,8 @@ class WeeklyLWN(BasicNewsRecipe):
                 articles[section_title].append({
                         'url': article_url,
                         'title': article_title,
-                        'description': '', 'content': '', 'date': '',
+                        'date': self.issue_date,
+                        'description': '', 'content': '',
                     })
 
             else:
